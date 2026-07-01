@@ -49,26 +49,6 @@ function Reveal({ children, delay = 0, className = "" }) {
   );
 }
 
-/* ---------- decorative SVGs (originales, no copian la pieza subida) ---------- */
-
-const Flower = ({ size = 60, color = "var(--coral)", style }) => (
-  <svg width={size} height={size} viewBox="0 0 60 60" style={style} fill="none">
-    {[0, 60, 120, 180, 240, 300].map((rot) => (
-      <ellipse
-        key={rot}
-        cx="30"
-        cy="16"
-        rx="9"
-        ry="15"
-        fill={color}
-        opacity="0.85"
-        transform={`rotate(${rot} 30 30)`}
-      />
-    ))}
-    <circle cx="30" cy="30" r="6" fill="var(--olive-dark)" />
-  </svg>
-);
-
 const SprigDivider = () => (
   <svg viewBox="0 0 200 24" width="160" height="20" fill="none">
     <path d="M2 12 H198" stroke="var(--olive)" strokeWidth="1" />
@@ -78,37 +58,10 @@ const SprigDivider = () => (
   </svg>
 );
 
-const Glasses = ({ size = 56 }) => (
-  <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
-    <path d="M16 8 L20 38 Q20 44 24 44" stroke="var(--berry)" strokeWidth="1.6" />
-    <path d="M44 8 L40 38 Q40 44 36 44" stroke="var(--berry)" strokeWidth="1.6" />
-    <line x1="24" y1="44" x2="24" y2="52" stroke="var(--berry)" strokeWidth="1.6" />
-    <line x1="36" y1="44" x2="36" y2="52" stroke="var(--berry)" strokeWidth="1.6" />
-    <line x1="18" y1="52" x2="30" y2="52" stroke="var(--berry)" strokeWidth="1.6" />
-    <line x1="30" y1="52" x2="42" y2="52" stroke="var(--berry)" strokeWidth="1.6" />
-    <path d="M16 8 L44 8" stroke="var(--berry)" strokeWidth="1.6" />
-    <path d="M17.5 14 L42.5 14" stroke="var(--berry)" strokeWidth="1.2" opacity="0.6" />
-  </svg>
-);
-
 const RingsIcon = ({ size = 50 }) => (
   <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
     <circle cx="24" cy="34" r="14" stroke="var(--berry)" strokeWidth="2.2" />
     <circle cx="38" cy="34" r="14" stroke="var(--olive)" strokeWidth="2.2" />
-  </svg>
-);
-
-const Car = ({ size = 70 }) => (
-  <svg width={size} height={size * 0.6} viewBox="0 0 100 60" fill="none">
-    <path
-      d="M10 42 Q8 24 28 22 L36 12 H64 L74 22 Q92 24 90 42 Z"
-      stroke="var(--berry)"
-      strokeWidth="2"
-      fill="none"
-    />
-    <circle cx="28" cy="44" r="7" stroke="var(--berry)" strokeWidth="2" />
-    <circle cx="72" cy="44" r="7" stroke="var(--berry)" strokeWidth="2" />
-    <line x1="40" y1="22" x2="40" y2="12" stroke="var(--berry)" strokeWidth="1.5" />
   </svg>
 );
 
@@ -124,21 +77,23 @@ export default function Landing() {
 
       {/* HERO */}
       <section className="hero">
-        <Reveal>
-          <div className="monogram">
-            <img
-                src="/AJ.png"
-                alt="AJ"
-                style={{ width: "140%", height: "140%", objectFit: "contain" }}
-            />
-          </div>
-        </Reveal>
+        <svg className="wavy-frame" viewBox="0 0 340 600" preserveAspectRatio="none">
+          <path
+            d="M 20 12
+       Q 60 2, 100 12 T 180 12 T 260 12 T 320 12
+       Q 330 60, 322 110 T 328 190 T 320 270 T 316 370 T 337 440 T 324 480 T 336 570
+       Q 310 580, 260 580 T 190 588 T 120 580 T 10 588
+       Q 25 500, 16 460 T 10 380 T 18 300 T 12 220 T 18 140 T 12 60 T 20 12 Z"
+            fill="none"
+            stroke="var(--olive)"
+            strokeWidth="3"
+          />
+        </svg>
         <Reveal delay={120}>
-          <div className="hero-petals">
-            <img 
-                src="/cuerpos.png"
-                alt="cuerpos"
-                style={{ width: "105%", height: "180%" }}
+          <div className="hero-bodys">
+            <img
+              src="/cuerpos.png"
+              alt="cuerpos"
             />
           </div>
         </Reveal>
@@ -160,28 +115,31 @@ export default function Landing() {
         <div className="down-arrow">⌄</div>
       </section>
 
-      <Flower size={70} color="var(--coral)" style={{ position: "absolute", top: 420, left: -18, opacity: 0.5 }} />
-      <Flower size={50} color="var(--pink)" style={{ position: "absolute", top: 560, right: -10, opacity: 0.6 }} />
-
       {/* DETAILS */}
       <section className="details">
         <Reveal>
           <div className="oval-card">
+            <img src="/marco.png" alt="" className="oval-bg" />
             <Reveal delay={120}>
-            <div className="hero-petals">
-                <img 
-                    src="/discoball.png"
-                    alt="cuerpos"
-                    style={{ width: "30%", height: "70%" }}
+              <div className="hero-petals">
+                <img
+                  src="/disco.png"
+                  alt="cuerpos"
+                  style={{ width: "30%", height: "70%" }}
                 />
-            </div>
+              </div>
             </Reveal>
             <p className="label">Fecha</p>
             <p className="value">Viernes, 08 de enero de 2027</p>
             <p className="label">Hora</p>
             <p className="value">4:30 pm</p>
             <div style={{ display: "flex", justifyContent: "center", margin: "18px 0" }}>
-              <Car size={64} />
+              {/* <Car size={64} /> */}
+              <img
+                src="/carro.png"
+                alt="car"
+                style={{ width: "15%" }}
+              />
             </div>
             <p className="label">Lugar</p>
             <p className="value">Hacienda La Capilla</p>
@@ -189,19 +147,185 @@ export default function Landing() {
               Subachoque (Bogotá) — Cundinamarca
             </p>
             <p className="value" style={{ fontSize: 15, opacity: 0.7, marginTop: 6 }}>
-              Autopista Medellín – Calle 80, Puente de Piedra km 1 
+              Autopista Medellín – Calle 80 <br />Puente de Piedra km 1
               <br />
               Subachoque - Cundinamarca
             </p>
+            <Reveal delay={150}>
+              <p className="envelope-note">✉ Lluvia de sobres</p>
+            </Reveal>
             <a className="map-btn" href={MAPS_URL} target="_blank" rel="noreferrer">
               📍 Ver ubicación
             </a>
           </div>
         </Reveal>
-        <Reveal delay={150}>
-          <p className="envelope-note">✉ Lluvia de sobres</p>
-        </Reveal>
+
       </section>
+      <img
+        src="/boleto_avion.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 1020,
+          right: 30,
+          width: 90,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(-30deg)"
+        }}
+      />
+      <img
+        src="/flor1.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 1160,
+          right: 10,
+          width: 60,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(12deg)"
+        }}
+      />
+      <img
+        src="/ESTRE.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 1224,
+          right: 2,
+          width: 40,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(1deg)"
+        }}
+      />
+      <img
+        src="/camara.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 1040,
+          left: 40,
+          width: 80,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(-20deg)"
+        }}
+      />
+      <img
+        src="/flor1.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 1000,
+          left: -1,
+          width: 80,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(12deg)"
+        }}
+      />
+      <img
+        src="/botella.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 1100,
+          left: 15,
+          width: 50,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(12deg)"
+        }}
+      />
+      <img
+        src="/ESTRE.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 1620,
+          left: 10,
+          width: 50,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(1deg)"
+        }}
+      />
+      <img
+        src="/champan.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 1660,
+          left: 10,
+          width: 80,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(1deg)"
+        }}
+      />
+      <img
+        src="/champan.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 1690,
+          left: 70,
+          width: 70,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(-25deg)"
+        }}
+      />
+      <img
+        src="/flor1.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 1630,
+          right: 5,
+          width: 80,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(1deg)"
+        }}
+      />
+      <img
+        src="/anillos.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 1696,
+          right: 41,
+          width: 120,
+          height: "auto",
+          opacity: 0.9,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(1deg)"
+        }}
+      />
 
       {/* COUNTDOWN + RSVP */}
       <section className="countdown" style={{ background: "var(--paper)" }}>
@@ -234,34 +358,134 @@ export default function Landing() {
       </section>
 
       {/* SCHEDULE */}
+      <img
+        src="/botella.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 2260,
+          left: 15,
+          width: 60,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(-160deg)"
+        }}
+      />
+      <img
+        src="/flor1.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 2260,
+          right: 5,
+          width: 100,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(-160deg)"
+        }}
+      />
+      <img
+        src="/camara.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 2386,
+          right: -30,
+          width: 80,
+          height: "auto",
+          opacity: 0.6,
+          pointerEvents: "none",
+          zIndex: 1,
+          transform: "rotate(-66deg)"
+        }}
+      />
+      <img
+        src="/anillos.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 2460,
+          right: -10,
+          width: 100,
+          height: "auto",
+          opacity: 1.9,
+          pointerEvents: "none",
+          zIndex: 4,
+          transform: "rotate(20deg)"
+        }}
+      />
+      <img
+        src="/disco.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 2460,
+          left: -17,
+          width: 130,
+          height: "auto",
+          opacity: 0.3,
+          pointerEvents: "none",
+          zIndex: 4,
+          transform: "rotate(-30deg)"
+        }}
+      />
       <section className="schedule">
-        <Reveal>
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
-            <Glasses size={50} />
+        <div className="schedule-frame">
+          <img src="/marco02.png" alt="" className="schedule-bg" />
+          <div className="schedule-content">
+            <Reveal>
+              <div style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
+                <img
+                  src="/champan.png" alt="champan" style={{ width: 50, height: "auto", transform: "rotate(5deg)" }}
+                />
+                <img
+                  src="/champan.png" alt="champan" style={{ width: 40, height: 70, transform: "rotate(-40deg)" }}
+                />
+              </div>
+              <h2 className="schedule-title">Cronograma del Evento</h2>
+            </Reveal>
+            <div className="timeline">
+              <Reveal delay={0}>
+                <div className="t-item">
+                  <p className="t-title">Ceremonia Religiosa</p>
+                  <p className="t-time">Hora: 4:30 pm</p>
+                </div>
+              </Reveal>
+              <Reveal delay={120}>
+                <div className="t-item">
+                  <p className="t-title">Cóctel de Bienvenida</p>
+                  <p className="t-time">Hora: 5:30 pm</p>
+                </div>
+              </Reveal>
+              <Reveal delay={240}>
+                <div className="t-item">
+                  <p className="t-title">Recepción y Fiesta</p>
+                  <p className="t-time">Hora: 7:00 pm</p>
+                </div>
+              </Reveal>
+            </div>
           </div>
-          <h2 className="schedule-title">Cronograma del Evento</h2>
-        </Reveal>
-        <div className="timeline">
-          <Reveal delay={0}>
-            <div className="t-item">
-              <p className="t-title">Ceremonia Religiosa</p>
-              <p className="t-time">4:30 pm</p>
-            </div>
-          </Reveal>
-          <Reveal delay={120}>
-            <div className="t-item">
-              <p className="t-title">Cóctel de Bienvenida</p>
-              <p className="t-time">5:30 pm</p>
-            </div>
-          </Reveal>
-          <Reveal delay={240}>
-            <div className="t-item">
-              <p className="t-title">Recepción y Fiesta</p>
-              <p className="t-time">7:00 pm</p>
-            </div>
-          </Reveal>
         </div>
       </section>
+      <img
+        src="/champan.png"
+        alt=""
+        style={{
+          position: "absolute",
+          top: 2750,
+          left: 5,
+          width: 70,
+          height: "auto",
+          opacity: 0.9,
+          pointerEvents: "none",
+          zIndex: 4,
+          transform: "rotate(-10deg)"
+        }}
+      />
 
       {/* DRESS CODE */}
       <section className="dress" style={{ background: "var(--paper)" }}>
@@ -278,11 +502,11 @@ export default function Landing() {
           <div className="swatches">
             <div className="swatch" style={{ background: "#fbfaf5" }} title="Blanco" />
             <div className="swatch" style={{ background: "#f1e8d2" }} title="Marfil" />
-            <div className="swatch" style={{ background: "var(--pink)" }} title="Rosado" />        
+            <div className="swatch" style={{ background: "var(--pink)" }} title="Rosado" />
           </div>
           <div>
-                <p>(Blanco, Marfil, Rosado)</p>
-            </div>
+            <p>(Blanco, Marfil, Rosado)</p>
+          </div>
         </Reveal>
         <Reveal delay={220}>
           <div className="adults-note">
@@ -308,7 +532,11 @@ export default function Landing() {
         </Reveal>
         <Reveal delay={300}>
           <div style={{ display: "flex", justifyContent: "center", marginTop: 18 }}>
-            <Car size={70} />
+            <img
+              src="/carro.png"
+              alt="anillos"
+              style={{ width: 90, height: "auto" }}
+            />
           </div>
         </Reveal>
       </section>
