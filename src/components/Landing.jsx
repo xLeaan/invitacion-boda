@@ -2,9 +2,27 @@ import React, { useEffect, useRef, useState } from "react";
 import "../styles/Landing.css"
 
 const WEDDING_DATE = new Date("2027-01-08T16:30:00-05:00");
-const MAPS_URL = "https://share.google/uALLQos2oA2E4lWSL";
-const WA_ANA = "https://wa.me/573107968918?text=" + encodeURIComponent("¡Hola Ana Sofía! Confirmo mi asistencia a su boda 💍");
-const WA_JUAN = "https://wa.me/573017790917?text=" + encodeURIComponent("¡Hola Juan Pablo! Confirmo mi asistencia a su boda 💍");
+const MAPS_URL = "https://www.google.com/maps/place/Hacienda+La+Capilla+Subachoque/@4.8318337,-74.2164486,17z/data=!3m1!4b1!4m6!3m5!1s0x8e3f802aeb446b81:0x92f9e637cd5d789f!8m2!3d4.8318337!4d-74.2164486!16s%2Fg%2F11bwp1jvjh?hl=es-US&entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D";
+const WA_ANA = "https://wa.me/573107968918?text=" + 
+encodeURIComponent("Hola, confirmo mi asistencia al matrimonio💍" + 
+  "\n \n Agradezco registrar la siguiente información: " +
+  "\n -Alergias alimentarias: " +
+  "\n -Alimentos que no consumo: " +
+  "\n -Soy: " +
+  "\n ☐ Vegetariano(a) " +
+  "\n ☐ Vegano(a) " +
+  "\n ☐ Ninguno "
+);
+const WA_JUAN = "https://wa.me/573017790917?text=" + 
+encodeURIComponent("Hola, confirmo mi asistencia al matrimonio💍" + 
+  "\n \n Agradezco registrar la siguiente información: " +
+  "\n -Alergias alimentarias: " +
+  "\n -Alimentos que no consumo: " +
+  "\n -Soy: " +
+  "\n ☐ Vegetariano(a) " +
+  "\n ☐ Vegano(a) " +
+  "\n ☐ Ninguno "
+);
 
 function useCountdown(target) {
   const [left, setLeft] = useState(target - new Date());
@@ -18,6 +36,30 @@ function useCountdown(target) {
   const m = Math.floor((clamp / 60000) % 60);
   const s = Math.floor((clamp / 1000) % 60);
   return { d, h, m, s, done: left <= 0 };
+}
+
+const IMAGES_TO_PRELOAD = [
+  "/cuerpos.png",
+  // "/anillos.png",
+  "boleto_avion.png",
+  "/botella.png",
+  "/camara.png",
+  "carro.png",
+  "champan.png",
+  "/ESTRE.png",
+  "/disco.png",
+  "/marco.png",
+  "/marco02.png",
+  "/flor1.png",
+];
+
+function preloadImage(src) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = resolve;
+    img.onerror = resolve;
+  });
 }
 
 function useReveal() {
@@ -68,7 +110,70 @@ const RingsIcon = ({ size = 50 }) => (
 /* ---------- main component ---------- */
 
 export default function Landing() {
+  const [loaded, setLoaded] = useState(false);
+  const [progress, setProgress] = useState(0);
   const { d, h, m, s, done } = useCountdown(WEDDING_DATE);
+
+  useEffect(() => {
+    let done = 0;
+    const total = IMAGES_TO_PRELOAD.length;
+    preloadImage("/anillos.png");
+
+    Promise.all(
+      IMAGES_TO_PRELOAD.map((src) =>
+        preloadImage(src).then(() => {
+          done += 1;
+          setProgress(Math.round((done / total) * 100));
+        })
+      )
+    ).then(() => setLoaded(true));
+  }, []);
+
+  if (!loaded) {
+    return (
+      <div className="preloader">
+        <style>{`
+        .preloader {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          background: #f3eee0;
+          font-family: 'Cormorant Garamond', serif;
+          color: #62713e;
+        }
+        .preloader-rings {
+          width: 70px;
+          height: 70px;
+          object-fit: contain;
+          animation: pulse 1.4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+          0%, 100% {
+            transform: scale(1);
+            opacity: 0.7;
+          }
+          50% {
+            transform: scale(1.15);
+            opacity: 1;
+          }
+        }
+        .preloader-spinner {
+          width: 40px; height: 40px;
+          border: 3px solid #e9b3ab;
+          border-top-color: #bd5347;
+          border-radius: 50%;
+          animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
+        <img src="/anillos.png" alt="Cargando" className="preloader-rings" />
+        <p>Cargando invitación… {progress}%</p>
+      </div>
+    );
+  }
 
   return (
     <div className="invite-root">
@@ -94,6 +199,9 @@ export default function Landing() {
             <img
               src="/cuerpos.png"
               alt="cuerpos"
+              loading="eager"
+              decoding="sync"
+              fetchPriority="high"
             />
           </div>
         </Reveal>
@@ -119,13 +227,16 @@ export default function Landing() {
       <section className="details">
         <Reveal>
           <div className="oval-card">
-            <img src="/marco.png" alt="" className="oval-bg" />
+            <img src="/marco.png" alt="" className="oval-bg" loading="eager" decoding="async" fetchPriority="high" />
             <Reveal delay={120}>
               <div className="hero-petals">
                 <img
                   src="/disco.png"
                   alt="cuerpos"
                   style={{ width: "30%", height: "70%" }}
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
                 />
               </div>
             </Reveal>
